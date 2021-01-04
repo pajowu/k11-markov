@@ -1,0 +1,19 @@
+[Unit]
+Description=k11-markov gunicorn daemon
+Requires=k11-markov.socket
+After=network.target
+
+[Service]
+Type=notify
+# another option for an even more restricted service is
+# DynamicUser=yes
+RuntimeDirectory=k11-markov
+WorkingDirectory=/home/pajowu/k11-markov
+ExecStart=/home/pajowu/k11-markov/env/bin/gunicorn app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
