@@ -50,6 +50,10 @@
 				margin: 0;
 			}
 
+			p {
+				margin: 0;
+			}
+
 			a {
 				color: #555;
 				word-break: break-all;
@@ -73,22 +77,9 @@
 				margin-bottom: 3rem;
 			}
 
-			.box > *:first-child {
-				margin-top: 0;
-			}
-
-			.box > *:last-child {
-				margin-bottom: 0;
-			}
-
-			.number {
-				margin-bottom: 0;
-			}
-
 			.title {
 				font-size: 3rem;
 				font-style: italic;
-				margin-top: 0;
 			}
 
 			@media (max-width: 48rem) {
@@ -98,27 +89,14 @@
 			}
 
 			button {
-				background-color: #fff;
-				color: #000;
-				font-weight: bold;
-				text-transform: uppercase;
-				text-decoration: none;
-				letter-spacing: 1px;
-				line-height: 1;
-				display: inline-block;
-				padding: 1rem 1.25rem;
-				border: 1px solid #000;
-			}
-
-			button:hover,
-			button:focus {
-				background-color: #ff0;
 				cursor: pointer;
 			}
 
 			footer {
 				font-size: 1.2rem;
-				margin-top: 5rem;
+				position: absolute;
+				right: 1rem;
+				bottom: 1rem;
 			}
 		</style>
 
@@ -140,8 +118,7 @@
 		</main>
 
 		<footer>
-			<p>Quelle Originaltitel: <a href="https://de.wikipedia.org/wiki/K11_–_Kommissare_im_Einsatz/Episodenliste">Wikipedia</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/legalcode">CC BY-SA 3.0</a>)</p>
-			<p><a href="https://github.com/pajowu/k11-markov">Code on Github</a></p>
+			<p>Code: <a href="https://github.com/pajowu/k11-markov" target="_blank">GitHub</a> | Quelle Originaltitel: <a href="https://de.wikipedia.org/wiki/K11_–_Kommissare_im_Einsatz/Episodenliste" target="_blank">Wikipedia</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/legalcode" target="_blank">CC BY-SA 3.0</a>)</p>
 		</footer>
 
 	</body>
