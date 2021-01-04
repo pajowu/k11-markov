@@ -45,6 +45,11 @@ python generate_model.py
 
 This create a new `model.json` with you model.
 
+## Deployment
+
+`systemd/` contains systemd units for deploying this code.
+They are based on the [gunicorn documentation](https://docs.gunicorn.org/en/stable/deploy.html#nginx-configuration), which you can see for more detailed instructions.
+
 ## LICENSE
 
 This code is licensed under an AGPL-3.0 with the exception fo the `input_raw.txt`, `input_cleaned.json` and `model.json`.
