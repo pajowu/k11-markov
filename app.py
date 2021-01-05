@@ -8,7 +8,7 @@ with open("template.html") as f:
 
 @app.route('/')
 def hello_world():
-	sentence = model.make_sentence(tries=10000)
+	sentence = model.make_sentence(tries=10000) or "Fehler! Bitte neuladen"
 	season = str(random.randint(1, 15))
 	episode = str(random.randint(1, 100))
 	return TEMPLATE.replace("%% SENTENCE %%",sentence).replace("%% EPISODE %%",episode).replace("%% SEASON %%", season)
