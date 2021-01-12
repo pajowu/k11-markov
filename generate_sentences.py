@@ -1,24 +1,18 @@
 import markovify
 import json
+import argparse
+from models import MODELS
 
-with open("model.json") as f:
-	reconstituted_model = markovify.Text.from_json(json.load(f))
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--model_name", required=True, choices=MODELS.keys())
+	parser.add_argument("-n", type=int, default=10)
+	parser.add_argument("--tries", type=int, default=1000)
+	args = parser.parse_args()
 
-with open("input_cleaned.json") as f:
-	input = json.load(f)
+	i=0
+	while i < args.n:
+		sentence = MODELS[args.model_name]['model'].make_sentence(tries=args.tries)
+		print(sentence)
 
-i = 0
-dups = 0
-sentences = set()
-while i < 10000:
-	sentence = reconstituted_model.make_sentence(tries=1000)
-	if sentence in input:
-		print("In Input", i, sentence)
-
-	if sentence in sentences:
-		print("Duplicate", i, sentence)
-		dups += 1
-	sentences.add(sentence)
-	i += 1
-
-print(dups / i * 100)
+		i+=1
