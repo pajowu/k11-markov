@@ -1,11 +1,14 @@
-from flask import Flask
-from models import MODELS
-import random
 import json
+import random
+from urllib.parse import urlparse
+
+from flask import Flask, redirect, request
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from models import MODELS
+from werkzeug.routing import BaseConverter, ValidationError
 
 app = Flask(__name__)
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 env = Environment(
     loader=FileSystemLoader("./templates"),
@@ -21,13 +24,27 @@ MODEL_NAMES = [(id, model["name"]) for id, model in MODELS.items()]
 MODEL_NAMES.sort(key=lambda x: x[1])
 
 
+class ModelNameConverter(BaseConverter):
+    def to_python(self, value):
+        if value not in MODELS:
+            raise ValidationError()
+        return value
+
+    def to_url(self, value):
+        return value
+
+
+app.url_map.converters["model_name"] = ModelNameConverter
+
+
 @app.route("/")
 def index():
-    # sentence = model.make_sentence(tries=10000) or "Fehler! Bitte neuladen"
-    # season = str(random.randint(1, 15))
-    # episode = str(random.randint(1, 100))
-    # return TEMPLATE.replace("%% SENTENCE %%",sentence).replace("%% EPISODE %%",episode).replace("%% SEASON %%", season)
-    return str(MODELS.keys())
+    o = urlparse(request.base_url)
+    host = o.hostname
+    if host.startswith("k11"):
+        return redirect("/k11")
+    else:
+        return redirect("/tierpark")
 
 
 @app.route("/soko")
@@ -59,7 +76,7 @@ def tierpark():
     )
 
 
-@app.route("/<model_name>")
+@app.route("/<model_name:model_name>")
 def model(model_name):
     model = MODELS[model_name]
     title = model["model"].make_sentence(tries=10000) or "Fehler! Bitte neuladen"
