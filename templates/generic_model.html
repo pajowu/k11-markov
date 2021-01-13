@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="referrer" content="no-referrer">
+
+		<title>{% block title %}"{{ model['name'] }}"-Episodengenerator{%endblock%}</title>
+
+		<style>
+			*,
+			*:before,
+			*:after {
+				box-sizing: border-box;
+			}
+
+			html {
+				font-family: sans-serif;
+				font-size: 62.5%;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				text-rendering: optimizeLegibility;
+				scroll-behavior: smooth;
+			}
+
+			body {
+				background-color: #fff;
+				color: #000;
+				font-size: 2rem;
+				line-height: 1.5;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				padding: 2rem;
+				margin: 0;
+			}
+
+			h1 {
+				margin-bottom: 2rem;
+			}
+
+			h1 {
+				font-size: 2rem;
+			}
+
+			p {
+				margin: 0;
+			}
+
+			a {
+				color: #555;
+				word-break: break-all;
+			}
+
+			a:hover,
+			a:focus {
+				background-color: #ff0;
+				color: #000;
+			}
+
+			main {
+				text-align: center;
+			}
+
+			.box {
+				background-color: #ff0;
+				box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.3);
+				max-width: 70rem;
+				padding: 2rem 3rem;
+				margin-bottom: 3rem;
+			}
+
+			.title {
+				font-size: 3rem;
+				font-style: italic;
+			}
+
+			@media (max-width: 48rem) {
+				.title {
+					font-size: 2rem
+				}
+			}
+
+			button {
+				cursor: pointer;
+			}
+
+			footer {
+				font-size: 1.2rem;
+				position: absolute;
+				right: 1rem;
+				bottom: 1rem;
+			}
+
+			header {
+				position: absolute;
+				top: 1rem;
+				left: 1rem;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<header>
+			{% include "menu.html" %}
+		</header>
+
+		<main>
+			<h1>{{ self.title() }}</h1>
+			<div class="box">
+				<p class="number">{% block byline %}Staffel {{ season }}, Episode {{ episode }}:{%endblock%}</p>
+				<p class="title">{{title}}</p>
+			</div>
+
+			<button onClick="window.location.reload();">Neu generieren</button>
+		</main>
+
+		<footer>
+			<p>
+				Code: <a href="https://github.com/pajowu/k11-markov" target="_blank">GitHub</a>
+			{% if model['sources'] %}| Quelle Originaltitel:{%endif%}
+			{% for source in model['sources'] %}
+				<a href=" {{source['url']}} " target="_blank">{{source['name']}}</a>
+			{%endfor%}
+			{% if 'license_name' in model %}
+				(<a href="{{ model['license_url'] }}" target="_blank">{{ model['license_name'] }}</a>)
+			{%endif%}
+
+			</p>
+		</footer>
+
+	</body>
+
+</html>
+

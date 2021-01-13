@@ -1,0 +1,4 @@
+{% set pipe = joiner("|") %}
+{% for model_id, model_name in models %}
+	{{ pipe() }} <a href="{{ model_id }}">{{ model_name }}</a>
+{% endfor %}
